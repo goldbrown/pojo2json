@@ -6,6 +6,7 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.psi.PsiElement;
@@ -26,8 +27,8 @@ import java.awt.datatransfer.StringSelection;
 public abstract class POJO2JSONAction extends AnAction {
 
 
-    private final NotificationGroup notificationGroup = NotificationGroupManager.getInstance()
-            .getNotificationGroup("pojo2json.NotificationGroup");
+//    private final NotificationGroup notificationGroup = NotificationGroupManager.getInstance()
+//            .getNotificationGroup("pojo2json.NotificationGroup");
 
     private final POJO2JSONParser pojo2JSONParser;
 
@@ -76,15 +77,18 @@ public abstract class POJO2JSONAction extends AnAction {
             outputToolWindow(json, project);
 
             String message = "Convert " + uClass.getName() + " to JSON success, copied to clipboard.";
-            Notification success = notificationGroup.createNotification(message, NotificationType.INFORMATION);
-            Notifications.Bus.notify(success, project);
+//            Notification success = notificationGroup.createNotification(message, NotificationType.INFORMATION);
+//            Notifications.Bus.notify(success, project);
+            Messages.showInfoMessage(message, "Convert to JSON success");
 
         } catch (KnownException ex) {
-            Notification warn = notificationGroup.createNotification(ex.getMessage(), NotificationType.WARNING);
-            Notifications.Bus.notify(warn, project);
+//            Notification warn = notificationGroup.createNotification(ex.getMessage(), NotificationType.WARNING);
+//            Notifications.Bus.notify(warn, project);
+            Messages.showInfoMessage(ex.getMessage(), "Convert to JSON failure");
         } catch (Exception ex) {
-            Notification error = notificationGroup.createNotification("Convert to JSON failed. " + ex.getMessage(), NotificationType.ERROR);
-            Notifications.Bus.notify(error, project);
+//            Notification error = notificationGroup.createNotification("Convert to JSON failed. " + ex.getMessage(), NotificationType.ERROR);
+//            Notifications.Bus.notify(error, project);
+            Messages.showInfoMessage("Convert to JSON failed. " + ex.getMessage(), "Convert to JSON failure");
         }
     }
 

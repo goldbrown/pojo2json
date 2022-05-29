@@ -11,6 +11,6 @@ public class BooleanType implements SpecifyType {
 
     @Override
     public Object random() {
-        return RandomUtils.nextBoolean();
+        return RandomUtils.nextInt(0, 2) == 1;
     }
 }
